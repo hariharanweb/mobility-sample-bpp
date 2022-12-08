@@ -9,8 +9,12 @@ const search = async (request) => {
     context: request.context,
     message: FakeOnSearchResponse,
   };
-  const postReponse = await fetch(`${bapUri}on_search`, {method: 'POST', body: response});
-  logger.debug(`Response ${JSON.stringify(postReponse)}`);
+  const postReponse = await fetch(
+    `${bapUri}/on_search`,
+    { method: 'post', body: JSON.stringify(response), headers: { 'Content-Type': 'application/json' } },
+  );
+  const body = await postReponse.text();
+  logger.debug(`Response ${body}`);
 };
 
 export default {

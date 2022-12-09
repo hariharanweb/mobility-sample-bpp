@@ -1,12 +1,13 @@
 import fetch from 'node-fetch';
 import log4js from 'log4js';
 import FakeOnSearchResponse from './FakeOnSearchResponse.json';
+import ContextBuilder from '../utilities/ContextBuilder';
 
 const search = async (request) => {
   const logger = log4js.getLogger('SearchService');
   const bapUri = request.context.bap_uri;
   const response = {
-    context: request.context,
+    context: ContextBuilder.getContextWithContext(request.context),
     message: FakeOnSearchResponse,
   };
   const postReponse = await fetch(

@@ -70,7 +70,7 @@
         }
       ],
       "bpp_id": "LOCAL_BPP",
-      "bpp_uri": "http://localhost:2000/bpp"
+      "bpp_uri": "http://localhost:3010/"
     }
   ]
 }

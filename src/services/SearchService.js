@@ -10,6 +10,7 @@ const search = async (request) => {
     context: ContextBuilder.getContextWithContext(request.context),
     message: FakeOnSearchResponse,
   };
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const postReponse = await fetch(
     `${bapUri}/on_search`,
     { method: 'post', body: JSON.stringify(response), headers: { 'Content-Type': 'application/json' } },

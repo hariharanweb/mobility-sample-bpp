@@ -1,7 +1,13 @@
 ## Mobility ONDC BPP
 
+- Add these entries to `/etc/hosts`
+```
+127.0.0.1 mobility-sample-bap
+127.0.0.1 sample-gateway-registry
+127.0.0.1 mobility-sample-bpp
+```
 - This is sample mobility BPP
-- Runs on http://localhost:3010
+- Runs on http://mobility-sample-bpp:3010
 
 ## Running BPP locally
 

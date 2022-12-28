@@ -4,7 +4,7 @@ const REGISTRY_URL = `${process.env.GATEWAY_URL}/lookup`;
 
 const getPublicKey = async (type) => {
   const request = JSON.stringify({
-    type: type,
+    type,
   });
 
   const response = await Api.doPost(REGISTRY_URL, request);

@@ -13,7 +13,7 @@ const doPost = async (url, body) => {
 
   return fetch(url, {
     method: 'post',
-    body: body,
+    body,
     headers: {
       'X-Gateway-Authorization': authHeaderValue,
       'Content-Type': 'application/json',

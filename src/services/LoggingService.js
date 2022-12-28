@@ -4,7 +4,9 @@ import log4js from 'log4js';
 dotenv.config();
 
 const getLogger = (key) => {
-  const logger = key ? log4js.getLogger(`BPP-${key}`) : log4js.getLogger('GatewayRegistry');
+  const logger = key
+    ? log4js.getLogger(`BPP-${key}`)
+    : log4js.getLogger('BPP');
   logger.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'debug';
   return logger;
 };

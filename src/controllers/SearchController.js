@@ -1,22 +1,21 @@
 import log4js from 'log4js';
 import SearchService from '../services/SearchService';
-import Utils from '../utils/Utils';
-import auth from '../utils/auth';
- 
-const search = (req, res) => {
+import GenericResponse from './GenericResponse';
+import authVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
+
+const search = async (req, res) => {
   const logger = log4js.getLogger('SearchController');
   logger.debug(`Search called with ${JSON.stringify(req.body)}`);
 
-  logger.debug('Before Authorize call');
-  auth.authorize(req).then((x) => {
-    logger.debug('On Fullfilled Promise of Authorize call');
+  const publicKey = await GenericResponse.getPublicKey('BG');
+  authVerifier.authorize(req, publicKey).then(() => {
+    logger.debug('Request Authorized Successfully.');
     SearchService.search(req.body);
-    res.send(Utils.successfulAck);
+    GenericResponse.sendAcknowledgement(res);
   }).catch((err) => {
-    logger.debug('On Rejected Promise of Authorize call');
-    res.status(401).send('Error');
+    logger.debug(`Authorization Failed: ${err}`);
+    GenericResponse.sendErrorWithAuthorization(res);
   });
-
 };
 
 export default {

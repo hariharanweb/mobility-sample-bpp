@@ -26,7 +26,7 @@ const getExpires = (headers) => {
 };
 
 const verify = (msg, publicKey, signature) => {
-  console.log("In verify the msg, publickey, signature are " + msg + " " + publicKey + " " + signature);
+  console.log("In verify the msg, publickey, signature are " + msg + " " + publicKey + " " + signature)
   const verification = sodium.crypto_sign_verify_detached(
     sodium.from_base64(signature, sodium.base64_variants.ORIGINAL),
     msg,

@@ -7,15 +7,15 @@ const search = (req, res) => {
   const logger = log4js.getLogger('SearchController');
   logger.debug(`Search called with ${JSON.stringify(req.body)}`);
 
-  const authorization = auth.authorize(req);
-
-  if(authorization){
+  logger.debug('Before Authorize call');
+  auth.authorize(req).then((x) => {
+    logger.debug('On Fullfilled Promise of Authorize call');
     SearchService.search(req.body);
     res.send(Utils.successfulAck);
-  }
-  else{
-    res.status(401).send("Error");
-  }
+  }).catch((err) => {
+    logger.debug('On Rejected Promise of Authorize call');
+    res.status(401).send('Error');
+  });
 
 };
 

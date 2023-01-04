@@ -2,18 +2,18 @@ import fetch from 'node-fetch';
 import LoggingService from '../services/LoggingService';
 import authHeader from '../utilities/SignVerify/AuthHeader';
 
-const doPost = async (url, bodyValue) => {
+const doPost = async (url, body) => {
   const logger = LoggingService.getLogger('API');
-  logger.debug(`Posting to ${url} with Content ${bodyValue}`);
+  logger.debug(`Posting to ${url} with Content ${body}`);
 
-  const privateKey = `${process.env.privateKey}`;
+  const privateKey = `${process.env.PRIVATE_KEY}`;
   const authHeaderValue = await authHeader
-    .generateAuthorizationHeaderValue(bodyValue, privateKey);
+    .generateAuthorizationHeaderValue(body, privateKey);
   logger.debug(`Header Value: ${authHeaderValue}`);
 
   return fetch(url, {
     method: 'post',
-    body: bodyValue,
+    body: body,
     headers: {
       'X-Gateway-Authorization': authHeaderValue,
       'Content-Type': 'application/json',

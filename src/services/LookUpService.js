@@ -1,4 +1,4 @@
-import Api from "../api/Api";
+import Api from '../api/Api';
 
 const REGISTRY_URL = `${process.env.GATEWAY_URL}/lookup`;
 

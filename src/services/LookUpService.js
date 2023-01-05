@@ -1,15 +1,28 @@
 import Api from '../api/Api';
+import Cache from '../utilities/Cache';
+import LoggingService from './LoggingService';
 
-const REGISTRY_URL = `${process.env.GATEWAY_URL}/lookup`;
+const REGISTRY_URL = `${process.env.REGISTRY_URL}/lookup`;
+const logger = LoggingService.getLogger('LookUpService');
 
-const getPublicKey = async (type) => {
+const lookUpPublicKey = async (cachekey, ukId) => {
   const request = JSON.stringify({
-    type: type,
+    ukId,
   });
-
   const response = await Api.doPost(REGISTRY_URL, request);
   const responseJson = await response.json();
+  Cache.setCache(cachekey, responseJson[0].signing_public_key);
+  logger.debug(`the looked up publickey is: ${responseJson[0].signing_public_key}`);
   return responseJson[0].signing_public_key;
+};
+
+const getPublicKey = async (ukId) => {
+  const cachekey = `publicKey - ${ukId};`;
+  const publicKey = await Cache.getCache(cachekey);
+  if (publicKey) {
+    return publicKey;
+  }
+  return lookUpPublicKey(cachekey, ukId);
 };
 
 export default {

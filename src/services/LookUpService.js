@@ -11,7 +11,6 @@ const lookUpPublicKey = async (cachekey, ukId) => {
   });
   const response = await Api.doPost(REGISTRY_URL, request);
   const responseJson = await response.json();
-  Cache.setCache(cachekey, responseJson[0].signing_public_key);
   logger.debug(`the looked up publickey is: ${responseJson[0].signing_public_key}`);
   return responseJson[0].signing_public_key;
 };
@@ -22,7 +21,9 @@ const getPublicKey = async (ukId) => {
   if (publicKey) {
     return publicKey;
   }
-  return lookUpPublicKey(cachekey, ukId);
+  const referencedPublicKey = lookUpPublicKey(cachekey, ukId);
+  Cache.setCache(cachekey, referencedPublicKey);
+  return referencedPublicKey;
 };
 
 export default {

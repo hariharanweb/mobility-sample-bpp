@@ -1,5 +1,5 @@
 {
-  "quote": {
+  "order": {
     "provider": {
       "id": "FAKE_TAXI",
       "descriptor": {
@@ -72,26 +72,26 @@
       }
     ],
     "quote": {
-      "price": {
-        "currency": "INR",
-        "value": "141"
-      },
-      "breakup": [
-        {
-          "title": "Fare",
-          "price": {
-            "currency": "INR",
-            "value": "111"
-          }
+        "price": {
+          "currency": "INR",
+          "value": "141"
         },
-        {
-          "title": "Tax",
-          "price": {
-            "currency": "INR",
-            "value": "30"
+        "breakup": [
+          {
+            "title": "Fare",
+            "price": {
+              "currency": "INR",
+              "value": "111"
+            }
+          },
+          {
+            "title": "Tax",
+            "price": {
+              "currency": "INR",
+              "value": "30"
+            }
           }
-        }
-      ]
+        ]
     }
   }
 }

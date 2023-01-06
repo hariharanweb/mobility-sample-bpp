@@ -1,12 +1,10 @@
 {
-    "extends": [
-        "airbnb-base"
-    ],
-    "env": {
-        "node": true,
-        "es6": true
-    },
-    "rules": {
-        "import/extensions": "off"
-    }
+  "extends": ["airbnb-base"],
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "import/extensions": "off"
+  }
 }

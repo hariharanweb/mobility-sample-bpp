@@ -1,7 +1,7 @@
 import NodeCache from 'node-cache';
 import LoggingService from '../services/LoggingService';
 
-const cache = new NodeCache({ stdTTL: 200000, checkperiod: 200000 });
+const cache = new NodeCache({ stdTTL: 120, checkperiod: 200000 });
 const logger = LoggingService.getLogger('Cache');
 
 const getCache = (cachekey) => {
@@ -9,9 +9,9 @@ const getCache = (cachekey) => {
   return cache.get(cachekey);
 };
 
-const setCache = (cachekey, publicKey) => {
-  logger.debug('Setting the cache');
-  cache.set(cachekey, publicKey);
+const setCache = (cachekey, publicKey, ttl) => {
+  cache.set(cachekey, publicKey, ttl);
+  logger.debug(`Inside set chache, the public key is: ${cache.get(cachekey)}`);
 };
 
 export default {

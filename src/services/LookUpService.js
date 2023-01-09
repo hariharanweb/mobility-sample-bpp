@@ -21,10 +21,10 @@ const getPublicKey = async (ukId) => {
   if (publicKey) {
     return publicKey;
   }
-  const referencedPublicKey = lookUpPublicKey(ukId);
-  Cache.setCache(cachekey, referencedPublicKey, 200000);
-  logger.debug(`the public key is: ${referencedPublicKey}`);
-  return referencedPublicKey;
+  const publicKeyFromLookUp = lookUpPublicKey(ukId);
+  Cache.setCache(cachekey, publicKeyFromLookUp, 200000);
+  logger.debug(`the public key is: ${publicKeyFromLookUp}`);
+  return publicKeyFromLookUp;
 };
 
 export default {

@@ -7,7 +7,6 @@ import LookUpService from '../services/LookUpService';
 const search = async (req, res) => {
   const logger = log4js.getLogger('SearchController');
   logger.debug(`Search called with ${JSON.stringify(req.body)}`);
-  // const ukID = process.env.UKID;
   const BecknGateway = 'BG';
 
   const publicKey = await LookUpService.getPublicKey(BecknGateway);

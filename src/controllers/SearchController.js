@@ -7,7 +7,7 @@ import LookUpService from '../services/LookUpService';
 const search = async (req, res) => {
   const logger = log4js.getLogger('SearchController');
   logger.debug(`Search called with ${JSON.stringify(req.body)}`);
-  const ukID = '111-222-303';
+  const ukID = process.env.UKID;
 
   const publicKey = await LookUpService.getPublicKey(ukID);
   authVerifier.authorize(req, publicKey).then(() => {

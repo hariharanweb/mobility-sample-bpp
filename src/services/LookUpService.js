@@ -21,7 +21,7 @@ const getPublicKey = async (ukId) => {
   if (publicKey) {
     return publicKey;
   }
-  const publicKeyFromLookUp = lookUpPublicKey(ukId);
+  const publicKeyFromLookUp = await lookUpPublicKey(ukId);
   Cache.setCache(cachekey, publicKeyFromLookUp, 200000);
   logger.debug(`the public key is: ${publicKeyFromLookUp}`);
   return publicKeyFromLookUp;

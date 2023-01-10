@@ -1,0 +1,97 @@
+{
+  "order": {
+    "provider": {
+      "id": "FAKE_TAXI",
+      "descriptor": {
+        "name": "Fake Taxi's",
+        "images": [
+          "https://cdn.iconscout.com/icon/premium/png-256-thumb/searching-car-automobile-3052095-2538547.png"
+        ]
+      },
+      "locations": [
+        {
+          "id": "FAKE_TAXI_LOCATION_ID",
+          "gps": "12.973614,77.608548"
+        }
+      ],
+      "categories": [
+        {
+          "id": "FAKE_TAXI_CATEGORY",
+          "descriptor": {
+            "name": "Premium Taxi"
+          }
+        }
+      ],
+      "items": [
+        {
+          "id": "FAKE_TAXI_ID",
+          "fulfillment_id": "FAKE_TAXI_FULFILLMENT_ID",
+          "descriptor": {
+            "name": "Premium Taxi",
+            "code": "Premium Taxi",
+            "images": [
+              "https://cdn.iconscout.com/icon/premium/png-256-thumb/searching-car-automobile-3052095-2538547.png"
+            ]
+          },
+          "price": {
+            "currency": "INR",
+            "value": "111"
+          },
+          "category_id": "FAKE_TAXI_CATEGORY_ID",
+          "tags": {
+            "NameOfModel": "Nexon",
+            "Make": "Tata",
+            "FuelType": "Petrol",
+            "VehicleType": "Premium Taxi"
+          }
+        }
+      ]
+    },
+    "items": [
+      {
+        "id": "FAKE_TAXI_ID",
+        "fulfillment_id": "FAKE_TAXI_FULFILLMENT_ID",
+        "descriptor": {
+          "name": "Premium Taxi",
+          "code": "Premium Taxi",
+          "images": [
+            "https://cdn.iconscout.com/icon/premium/png-256-thumb/searching-car-automobile-3052095-2538547.png"
+          ]
+        },
+        "price": {
+          "currency": "INR",
+          "value": "111"
+        },
+        "category_id": "FAKE_TAXI_CATEGORY_ID",
+        "tags": {
+          "NameOfModel": "Nexon",
+          "Make": "Tata",
+          "FuelType": "Petrol",
+          "VehicleType": "Premium Taxi"
+        }
+      }
+    ],
+    "quote": {
+        "price": {
+          "currency": "INR",
+          "value": "141"
+        },
+        "breakup": [
+          {
+            "title": "Fare",
+            "price": {
+              "currency": "INR",
+              "value": "111"
+            }
+          },
+          {
+            "title": "Tax",
+            "price": {
+              "currency": "INR",
+              "value": "30"
+            }
+          }
+        ]
+    }
+  }
+}

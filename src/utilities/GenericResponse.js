@@ -1,4 +1,3 @@
-
 const sendAcknowledgement = (res) => {
   res.send({
     message: {

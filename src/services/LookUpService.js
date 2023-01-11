@@ -16,12 +16,19 @@ const lookUpPublicKey = async (type) => {
   return responseJson[0].signing_public_key;
 };
 const getPublicKeyWithSubscriberId = async (subscriber_id) => {
+  const cachekey = `publicKey - ${subscriber_id};`;
+  const publicKey = await Cache.getCache(cachekey);
+  if (publicKey) {
+    return publicKey;
+  }
   const request = JSON.stringify({
     subscriber_id,
   });
 
   const response = await Api.doPost(REGISTRY_URL, request);
   const responseJson = await response.json();
+  Cache.setCache(cachekey, responseJson[0].signing_public_key, 200000);
+  logger.debug(`the public key is: ${responseJson[0].signing_public_key}`);
   return responseJson[0].signing_public_key;
 };
 

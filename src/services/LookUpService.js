@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Api from '../api/Api';
 
 const REGISTRY_URL = `${process.env.GATEWAY_URL}/lookup`;
@@ -11,9 +12,9 @@ const getPublicKey = async (type) => {
   const responseJson = await response.json();
   return responseJson[0].signing_public_key;
 };
-const getPublicKeyWithUkId = async (ukId) => {
+const getPublicKeyWithSubscriberId = async (subscriber_id) => {
   const request = JSON.stringify({
-    ukId,
+    subscriber_id,
   });
 
   const response = await Api.doPost(REGISTRY_URL, request);
@@ -23,5 +24,5 @@ const getPublicKeyWithUkId = async (ukId) => {
 
 export default {
   getPublicKey,
-  getPublicKeyWithUkId,
+  getPublicKeyWithSubscriberId,
 };

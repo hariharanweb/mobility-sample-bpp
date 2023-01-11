@@ -7,7 +7,7 @@ import LookUpService from '../services/LookUpService';
 const select = async (req, res) => {
   const logger = log4js.getLogger('SelectController');
   logger.debug(`Select called with ${JSON.stringify(req.body)}`);
-  const publicKey = await LookUpService.getPublicKeyWithUkId(req.body.context.ukId);
+  const publicKey = await LookUpService.getPublicKeyWithSubscriberId(req.body.context.bap_id);
   authVerifier.authorize(req, publicKey).then(() => {
     logger.debug('Request Authorized Successfully.');
     SelectService.select(req.body);

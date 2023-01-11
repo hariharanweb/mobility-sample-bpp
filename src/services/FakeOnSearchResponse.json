@@ -6,7 +6,7 @@
     },
     "bpp/providers": [
       {
-        "id": "FAKE_TAXI",
+        "id": "111-222-300",
         "descriptor": {
           "name": "Fake Taxi's",
           "long_desc": "We are fake",

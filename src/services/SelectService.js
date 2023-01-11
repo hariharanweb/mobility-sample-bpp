@@ -15,8 +15,7 @@ const select = async (request) => {
   // eslint-disable-next-line no-promise-executor-return
   await new Promise((resolve) => setTimeout(resolve, 3000)); // delayed result
   const url = `${request.context.bap_uri}/on_select`;
-
-  const postResponse = await Api.doPost(url, response);
+  const postResponse = await Api.doPost(url, JSON.stringify(response));
   const body = await postResponse.text();
   logger.debug(`Response ${body}`);
 };

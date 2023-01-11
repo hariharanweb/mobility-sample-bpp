@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Api from '../api/Api';
 import Cache from '../utilities/Cache';
 import LoggingService from './LoggingService';
@@ -12,6 +13,15 @@ const lookUpPublicKey = async (type) => {
   const response = await Api.doPost(REGISTRY_URL, request);
   const responseJson = await response.json();
   logger.debug(`the looked up publickey is: ${responseJson[0].signing_public_key}`);
+  return responseJson[0].signing_public_key;
+};
+const getPublicKeyWithSubscriberId = async (subscriber_id) => {
+  const request = JSON.stringify({
+    subscriber_id,
+  });
+
+  const response = await Api.doPost(REGISTRY_URL, request);
+  const responseJson = await response.json();
   return responseJson[0].signing_public_key;
 };
 
@@ -29,4 +39,5 @@ const getPublicKey = async (type) => {
 
 export default {
   getPublicKey,
+  getPublicKeyWithSubscriberId,
 };

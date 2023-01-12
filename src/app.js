@@ -1,7 +1,10 @@
 import express from 'express';
+import * as dotenv from 'dotenv';
 import log4js from 'log4js';
 import SearchController from './controllers/SearchController';
 import SelectController from './controllers/SelectController';
+
+dotenv.config();
 
 const app = express();
 const logger = log4js.getLogger();

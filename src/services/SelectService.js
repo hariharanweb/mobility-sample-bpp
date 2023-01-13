@@ -2,15 +2,43 @@ import * as dotenv from 'dotenv';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';
-import FakeOnSelectResponse from './FakeOnSelectResponse.json';
 
 dotenv.config();
 
 const select = async (request) => {
+  const totalValue = 30 + parseInt(request.message.order.items[0].price.value, 10);
+  const data = {
+    order: {
+      provider: {
+        id: request.message.order.provider.id,
+      },
+      items: request.message.order.items,
+      quote: {
+        price: {
+          currency: request.message.order.items[0].price.currency,
+          value: totalValue,
+        },
+        breakup: [
+          {
+            title: 'Fare',
+            price: request.message.order.items[0].price,
+          },
+          {
+            title: 'Tax',
+            price: {
+              currency: 'INR',
+              value: '30',
+            },
+          },
+        ],
+      },
+    },
+  };
   const logger = LoggingService.getLogger('SelectService');
+  logger.debug(JSON.stringify(request));
   const response = {
     context: ContextBuilder.getContextWithContext(request.context),
-    message: FakeOnSelectResponse,
+    message: data,
   };
   // eslint-disable-next-line no-promise-executor-return
   await new Promise((resolve) => setTimeout(resolve, 3000)); // delayed result

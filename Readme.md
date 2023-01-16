@@ -12,8 +12,8 @@
 ## Running BPP locally
 
 - Copy `local.env` to `.env` 
-- Run `npm start`
-- To run in watch mode `npm run watch`
+- Run `yarn start`
+- To run in watch mode `yarn run watch`
 
 ## Running BPP as Docker
 

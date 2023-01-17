@@ -13,6 +13,22 @@ const init = async (request) => {
         id: request.message.order.provider.id,
       },
       items: request.message.order.items,
+      billing: {
+        name: 'John Doe',
+        address: {
+          door: '21A',
+          name: 'ABC Apartments',
+          locality: 'HSR Layout',
+          city: 'Bengaluru',
+          state: 'Karnataka',
+          country: 'India',
+          area_code: '560102',
+        },
+        email: 'user@example.com',
+        phone: '+919876543210',
+        created_at: '2021-06-15T07:08:36.211Z',
+        updated_at: '2021-06-15T07:08:36.211Z',
+      },
       quote: {
         price: {
           currency: request.message.order.items[0].price.currency,
@@ -31,6 +47,18 @@ const init = async (request) => {
             },
           },
         ],
+      },
+      payment: {
+        uri: 'https://api.bpp.com/pay?amt=$amount&txn_id=ksh87yriuro34iyr3p4&mode=upi&vpa=bpp@upi',
+        tl_method: 'http/get',
+        params: {
+          transaction_id: 'ksh87yriuro34iyr3p4',
+          amount: '180',
+          mode: 'upi',
+          vpa: 'bpp@upi',
+        },
+        type: 'ON-ORDER',
+        status: 'NOT-PAID',
       },
     },
   };

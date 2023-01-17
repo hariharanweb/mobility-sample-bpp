@@ -6,34 +6,19 @@ import Api from '../api/Api';
 dotenv.config();
 
 const init = async (request) => {
-  const totalValue = 30 + parseInt(request.message.order.items[0].price.value, 10);
   const data = {
     order: {
-      provider: {
-        id: request.message.order.provider.id,
-      },
-      items: request.message.order.items,
-      billing: request.message.order.billing,
-      quote: {
-        price: {
-          currency: request.message.order.items[0].price.currency,
-          value: totalValue,
+      ...request.message.order,
+      payment: {
+        uri: 'https://api.bpp.com/pay?amt=$amount&txn_id=ksh87yriuro34iyr3p4&mode=upi&vpa=bpp@upi',
+        tl_method: 'http/get',
+        params: {
+          transaction_id: 'ksh87yriuro34iyr3p4',
+          amount: '1800',
+          mode: 'upi',
+          vpa: 'bpp@upi',
         },
-        breakup: [
-          {
-            title: 'Fare',
-            price: request.message.order.items[0].price,
-          },
-          {
-            title: 'Tax',
-            price: {
-              currency: 'INR',
-              value: '30',
-            },
-          },
-        ],
       },
-      payment: request.message.order.payment,
     },
   };
   const logger = LoggingService.getLogger('InitService');

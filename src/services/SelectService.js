@@ -6,6 +6,7 @@ import Api from '../api/Api';
 dotenv.config();
 
 const select = async (request) => {
+  console.log(request.message);
   const totalValue = 30 + parseInt(request.message.order.items[0].price.value, 10);
   const data = {
     order: {

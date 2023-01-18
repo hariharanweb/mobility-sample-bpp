@@ -10,7 +10,6 @@ const confirm = async (request) => {
     order: {
       ...request.message.order,
       fulfillment: {
-        rating: '4',
         agent: {
           name: 'Nikhil',
           dob: '01/02/1996',

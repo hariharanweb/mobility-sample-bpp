@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+import { v4 as uuid } from 'uuid';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';
@@ -13,7 +14,7 @@ const init = async (request) => {
         uri: 'https://api.bpp.com/pay?amt=$amount&txn_id=ksh87yriuro34iyr3p4&mode=upi&vpa=bpp@upi',
         tl_method: 'http/get',
         params: {
-          transaction_id: 'ksh87yriuro34iyr3p4',
+          transaction_id: uuid(),
           amount: '1800',
           mode: 'upi',
           vpa: 'bpp@upi',

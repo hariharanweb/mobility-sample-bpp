@@ -17,6 +17,14 @@ const confirm = async (request) => {
           phone: '9876543210',
           email: 'nikhil@gmail.com',
         },
+        vehicle: {
+          category: 'Cab',
+          capacity: '4',
+          model: 'Sedan',
+          color: 'black',
+          energy_type: 'fuel',
+          registration: 'DL 04 4444',
+        },
       },
     },
   };

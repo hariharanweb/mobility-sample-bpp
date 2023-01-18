@@ -6,11 +6,13 @@ import Api from '../api/Api';
 dotenv.config();
 
 const select = async (request) => {
+  const logger = LoggingService.getLogger('SelectService');
   const totalValue = 30 + parseInt(request.message.order.items[0].price.value, 10);
   const data = {
     order: {
       provider: {
         id: request.message.order.provider.id,
+        fulfillments: request.message.order.fulfillment,
       },
       items: request.message.order.items,
       quote: {
@@ -34,7 +36,6 @@ const select = async (request) => {
       },
     },
   };
-  const logger = LoggingService.getLogger('SelectService');
   logger.debug(JSON.stringify(request));
   const response = {
     context: ContextBuilder.getContextWithContext(request.context),

@@ -6,21 +6,21 @@ import Api from '../api/Api';
 dotenv.config();
 
 const confirm = async (request) => {
-    const data = {
-        order: {
-          ...request.message.order,
-          fulfillment: {
-            rating: '4',
-            agent: {
-              name: 'Nikhil',
-              dob: '01/02/1996',
-              gender: 'Male',
-              phone: '9876543210',
-              email: 'nikhil@gmail.com',
-            },
-          },
+  const data = {
+    order: {
+      ...request.message.order,
+      fulfillment: {
+        rating: '4',
+        agent: {
+          name: 'Nikhil',
+          dob: '01/02/1996',
+          gender: 'Male',
+          phone: '9876543210',
+          email: 'nikhil@gmail.com',
         },
-      };
+      },
+    },
+  };
   const logger = LoggingService.getLogger('ConfirmService');
   logger.debug(JSON.stringify(request));
   const response = {

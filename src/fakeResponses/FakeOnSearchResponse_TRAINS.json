@@ -161,6 +161,21 @@
           }
         ]
       }
+    ],
+    "bpp/fulfillments": [
+      {
+        "tracking": false,
+        "start": {
+          "location": {
+            "gps": "12.934845,77.610949"
+          }
+        },
+        "end": {
+          "location": {
+            "gps": "13.011058,77.555064"
+          }
+        }
+      }
     ]
   }
 }

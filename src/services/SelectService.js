@@ -26,10 +26,17 @@ const select = async (request) => {
             price: request.message.order.items[0].price,
           },
           {
-            title: 'Tax',
+            title: 'CGST',
             price: {
               currency: 'INR',
-              value: '30',
+              value: '15',
+            },
+          },
+          {
+            title: 'SGST',
+            price: {
+              currency: 'INR',
+              value: '15',
             },
           },
         ],
@@ -41,8 +48,6 @@ const select = async (request) => {
     context: ContextBuilder.getContextWithContext(request.context),
     message: data,
   };
-  // eslint-disable-next-line no-promise-executor-return
-  await new Promise((resolve) => setTimeout(resolve, 3000)); // delayed result
   const url = `${request.context.bap_uri}/on_select`;
   const postResponse = await Api.doPost(url, JSON.stringify(response));
   const body = await postResponse.text();

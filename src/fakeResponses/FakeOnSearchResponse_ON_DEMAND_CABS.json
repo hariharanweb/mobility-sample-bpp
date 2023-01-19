@@ -47,7 +47,7 @@
             },
             "price": {
               "currency": "INR",
-              "value": "111"
+              "value": "1111"
             },
             "category_id": "Bake_TAXI_SEDAN"
           },
@@ -63,7 +63,7 @@
             },
             "price": {
               "currency": "INR",
-              "value": "141"
+              "value": "1411"
             },
             "category_id": "Bake_TAXI_SUV"
           }

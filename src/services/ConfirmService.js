@@ -6,6 +6,7 @@ import Api from '../api/Api';
 dotenv.config();
 
 const confirm = async (request) => {
+  request.message.order.fulfillment.tracking = true;
   const data = {
     order: {
       ...request.message.order,

@@ -10,6 +10,7 @@ const init = async (request) => {
   const data = {
     order: {
       ...request.message.order,
+      id: uuid(),
       payment: {
         uri: 'https://api.bpp.com/pay?amt=$amount&txn_id=ksh87yriuro34iyr3p4&mode=upi&vpa=bpp@upi',
         tl_method: 'http/get',

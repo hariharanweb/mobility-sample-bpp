@@ -72,7 +72,7 @@
     ],
     "bpp/fulfillments": [
       {
-        "tracking": true,
+        "tracking": false,
         "start": {
           "location": {
             "gps": "12.934845,77.610949"

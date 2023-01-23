@@ -1,8 +1,8 @@
-import * as dotenv from 'dotenv';;
+import * as dotenv from 'dotenv';
+import randomize from 'randomatic';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';
-import randomize from "randomatic";
 
 dotenv.config();
 
@@ -10,19 +10,19 @@ const status = async (request) => {
   const data = {
     order: {
       ...request.message.order,
-      state: "CONFIRMED",
+      state: 'CONFIRMED',
       fulfillment: {
         ...request.message.order.fulfillment,
         state: {
-          code: "DRIVER_ALLOCATED"
-        },  
+          code: 'DRIVER_ALLOCATED',
+        },
         fulfillment: {
           ...request.message.order.fulfillment.start,
           authorization: {
-            type: "OTP",
+            type: 'OTP',
             token: randomize('0', 4),
           },
-        }
+        },
       },
     },
   };

@@ -1,4 +1,4 @@
-import * as dotenv from 'dotenv';;
+import * as dotenv from 'dotenv';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';

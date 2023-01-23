@@ -19,5 +19,5 @@ const track = async (req, res) => {
 };
 
 export default {
-   track,
+  track,
 };

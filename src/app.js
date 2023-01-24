@@ -1,6 +1,8 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
 import log4js from 'log4js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import SearchController from './controllers/SearchController';
 import SelectController from './controllers/SelectController';
 import ConfirmController from './controllers/ConfirmController';
@@ -31,4 +33,12 @@ app.post('/track', TrackController.track);
 
 app.listen(port, () => {
   logger.info(`Sample BPP listening on port ${port}`);
+});
+
+const filename = fileURLToPath(import.meta.url);
+
+const dirname = path.dirname(filename);
+
+app.get('/tracking', (req, res) => {
+  res.sendFile(`${dirname}/tracking.html`);
 });

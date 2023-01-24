@@ -1,12 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <style>
+        #track-header {
+            height: 5%;
+        }
+
+        #map {
+            height: 95%;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 20px;
+        }
+    </style>
+    <script>
+        function displayRoute(origin, destination, service, display) {
+            service
+                .route({
+                    origin,
+                    destination,
+                    /* eslint-disable no-undef */
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    avoidTolls: true,
+                })
+                .then((result) => {
+                    display.setDirections(result);
+                })
+                .catch((e) => {
+                    console.log(`Could not display directions due to: ${e}`);
+                });
+        }
+
+        function initMap() {
+            const myLatLng = { lat: 28.58075095435382, lng: 77.27438995055431 };
+            const startPoint = '28.572886028444636, 77.32493318610665';
+            const endPoint = '28.553696510813637, 77.21231247943025';
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: myLatLng, 
+            });
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer({
+                draggable: true,
+                map,
+                panel: document.getElementById('panel'),
+            });
+            const image = 'https://img.icons8.com/emoji/30/automobile.png';
+            new google.maps.Marker({
+                position: myLatLng,
+                map,
+                title: 'Your Ride is here',
+                icon: image,
+            });
+
+            displayRoute(
+                startPoint, 
+                endPoint, 
+                directionsService,
+                directionsRenderer,
+            );
+        }
+
+        window.initMap = initMap;
+
+    </script>
 </head>
+
 <body>
-    <h1>Tracking Page</h1>
+    <h1 id="track-header">Track your ride</h1>
+    <div id="map"></div>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key={API_KEY}&callback=initMap&v=weekly"
+        defer></script>
 </body>
+
 </html>

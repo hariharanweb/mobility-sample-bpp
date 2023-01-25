@@ -63,7 +63,7 @@
             },
             "price": {
               "currency": "INR",
-              "value": "141"
+              "value": "1411"
             },
             "category_id": "Bake_TAXI_SUV"
           }
@@ -72,17 +72,7 @@
     ],
     "bpp/fulfillments": [
       {
-        "tracking": false,
-        "start": {
-          "location": {
-            "gps": "12.934845,77.610949"
-          }
-        },
-        "end": {
-          "location": {
-            "gps": "13.011058,77.555064"
-          }
-        }
+        "tracking": false
       }
     ]
   }

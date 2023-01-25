@@ -17,10 +17,12 @@ const readResponse = () => {
 const search = async (request) => {
   const logger = LoggingService.getLogger('SearchService');
   const gatewayUrl = process.env.GATEWAY_URL;
-
+  const fakeOnSearchResponsebody = readResponse();
+  fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].start = request.message.intent.fulfillment.start;
+  fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].end = request.message.intent.fulfillment.end;
   const response = {
     context: ContextBuilder.getContextWithContext(request.context),
-    message: readResponse(),
+    message: fakeOnSearchResponsebody,
   };
   // eslint-disable-next-line no-promise-executor-return
   await new Promise((resolve) => setTimeout(resolve, 3000)); // delayed result

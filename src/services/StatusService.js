@@ -11,7 +11,7 @@ const status = async (request) => {
   const orderFromCache = OrderRepository.getResult(request.message.order.id);
   const data = {
     order: {
-      ...orderFromCache,
+      ...orderFromCache[0].message.order,
       state: 'CONFIRMED',
       fulfillment: {
         ...orderFromCache[0].message.order.fulfillment,

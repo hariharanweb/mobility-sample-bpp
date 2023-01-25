@@ -7,12 +7,10 @@ dotenv.config();
 
 const track = async (request) => {
   const data = {
-    order: {
-      ...request.message.order,
-      fulfillment: {
-        ...request.message.order.fulfillment,
-      },
-    },
+    tracking: {
+      url: 'http://localhost:3010/tracking',
+      "./komn.content-type": 'text/x-uri'
+    }
   };
   const logger = LoggingService.getLogger('TrackService');
   logger.debug(JSON.stringify(request));

@@ -6,7 +6,7 @@ import Api from '../api/Api';
 dotenv.config();
 
 const confirm = async (request) => {
-  request.message.order.fulfillment.tracking = true;
+  request.message.order.fulfillment.tracking = (process.env.MODE === 'ON_DEMAND_CABS');
   const data = {
     order: {
       ...request.message.order,

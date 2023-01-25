@@ -9,8 +9,8 @@ const track = async (request) => {
   const data = {
     tracking: {
       url: 'http://localhost:3010/tracking',
-      "./komn.content-type": 'text/x-uri'
-    }
+      './komn.content-type': 'text/x-uri',
+    },
   };
   const logger = LoggingService.getLogger('TrackService');
   logger.debug(JSON.stringify(request));

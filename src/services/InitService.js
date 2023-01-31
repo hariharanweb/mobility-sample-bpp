@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';
+import OrderRepository from '../repo/OrderRepository';
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ const init = async (request) => {
     message: data,
   };
   const url = `${request.context.bap_uri}/on_init`;
+  OrderRepository.storeResult(response);
   const postResponse = await Api.doPost(url, JSON.stringify(response));
   const body = await postResponse.text();
   logger.debug(`Response ${body}`);

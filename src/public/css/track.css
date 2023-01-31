@@ -1,0 +1,15 @@
+#track-header {
+  height: 5%;
+  padding: 10px 0px;
+}
+
+#map {
+  height: 90%;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0px 20px;
+}

@@ -20,6 +20,20 @@ const port = process.env.SELLER_APP_PORT ? process.env.SELLER_APP_PORT : 3010;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const filename = fileURLToPath(import.meta.url);
+
+const dirname = path.dirname(filename);
+
+app.set('view engine', 'pug');
+app.set('views', path.join(dirname, 'views'));
+app.use(express.static(path.join(dirname, 'public')));
+
+app.get('/tracking', (req, res) => {
+  res.status(200).render('track', {
+    apiKey: process.env.MAP_API_KEY,
+  });
+});
+
 app.get('/', (req, res) => {
   res.send(`Sample BPP is running ${new Date()}`);
 });
@@ -33,12 +47,4 @@ app.post('/track', TrackController.track);
 
 app.listen(port, () => {
   logger.info(`Sample BPP listening on port ${port}`);
-});
-
-const filename = fileURLToPath(import.meta.url);
-
-const dirname = path.dirname(filename);
-
-app.get('/tracking', (req, res) => {
-  res.sendFile(`${dirname}/tracking.html`);
 });

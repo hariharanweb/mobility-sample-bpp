@@ -7,7 +7,9 @@
   "scripts": {
     "start": "node --experimental-specifier-resolution=node src/app.js",
     "lint": "eslint src --fix",
-    "watch": "nodemon --experimental-specifier-resolution=node src/app.js"
+    "watch": "nodemon --experimental-specifier-resolution=node src/app.js",
+    "test": "vitest --reporter verbose --globals",
+    "test:coverage": "vitest run --coverage"
   },
   "author": "",
   "license": "ISC",
@@ -22,9 +24,11 @@
     "node-fetch": "^3.3.0",
     "pug": "^3.0.2",
     "randomatic": "^3.1.1",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "vitest": "^0.28.3"
   },
   "devDependencies": {
+    "@vitest/coverage-c8": "^0.28.3",
     "eslint": "^8.29.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",

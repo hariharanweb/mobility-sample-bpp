@@ -9,6 +9,7 @@ import ConfirmController from './controllers/ConfirmController';
 import InitController from './controllers/InitController';
 import StatusController from './controllers/StatusController';
 import TrackController from './controllers/TrackController';
+import SubscribeController from './controllers/SubscribeController';
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ app.post('/confirm', ConfirmController.confirm);
 app.post('/init', InitController.init);
 app.post('/status', StatusController.status);
 app.post('/track', TrackController.track);
+app.post('/subscribe', SubscribeController.subscribe);
 
 app.listen(port, () => {
   logger.info(`Sample BPP listening on port ${port}`);

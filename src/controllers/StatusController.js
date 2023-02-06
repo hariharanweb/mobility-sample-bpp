@@ -8,7 +8,7 @@ const status = async (req, res) => {
   const logger = log4js.getLogger('StatusController');
   logger.debug(`Status called with ${JSON.stringify(req.body)}`);
   const publicKey = await LookUpService.getPublicKeyWithSubscriberId(req.body.context.bap_id);
-  authVerifier.authorize(req, publicKey).then(() => {
+  await authVerifier.authorize(req, publicKey).then(() => {
     logger.debug('Request Authorized Successfully.');
     StatusService.status(req.body);
     GenericResponse.sendAcknowledgement(res);

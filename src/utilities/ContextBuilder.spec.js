@@ -30,8 +30,8 @@ it('should test getContextWithContext', () => {
     transaction_id: 'f549266e-4297-4c21-81a6-5f9fa59a7a4c',
     message_id: '444a574e-b059-42b6-95e0-18789354517c',
     timestamp: moment().format(),
-    bpp_id: 'sample_mobility_bpp_trains',
-    bpp_uri: 'http://localhost:4010',
+    bpp_id: process.env.SELLER_APP_ID,
+    bpp_uri: process.env.SELLER_APP_URL,
   };
   expect(contextResult).toStrictEqual(contextFinal);
 });

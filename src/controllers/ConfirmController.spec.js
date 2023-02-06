@@ -48,7 +48,7 @@ const request = {
   },
 };
 
-describe('Init Controller', () => {
+describe('Confirm Controller', () => {
   it('should check whether public key is obtained', async () => {
     await ConfirmController.confirm(request);
     expect(LookUpService.getPublicKeyWithSubscriberId).toBeCalled();

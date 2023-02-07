@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import log4js from 'log4js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import http from 'http';
 import SearchController from './controllers/SearchController';
 import SelectController from './controllers/SelectController';
 import ConfirmController from './controllers/ConfirmController';
@@ -10,13 +11,14 @@ import InitController from './controllers/InitController';
 import StatusController from './controllers/StatusController';
 import TrackController from './controllers/TrackController';
 import SubscribeController from './controllers/SubscribeController';
+// import SubscribeService from './services/SubscribeService';
 
 dotenv.config();
 
 const app = express();
 const logger = log4js.getLogger();
 logger.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'debug';
-const port = process.env.SELLER_APP_PORT ? process.env.SELLER_APP_PORT : 3010;
+// const port = process.env.SELLER_APP_PORT ? process.env.SELLER_APP_PORT : 3010;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,6 +50,27 @@ app.post('/status', StatusController.status);
 app.post('/track', TrackController.track);
 app.post('/subscribe', SubscribeController.subscribe);
 
-app.listen(port, () => {
-  logger.info(`Sample BPP listening on port ${port}`);
+// app.listen(port, () => {
+//   logger.info(`Sample BPP listening on port ${port}`);
+// });
+
+const server = http.createServer(app);
+server.listen(0, () => {
+  const portNumber = server.address().port;
+  logger.info(`Sample BPP listening on port ${portNumber}`);
+  process.env.SELLER_APP_PORT = portNumber;
+  process.env.SELLER_APP_ID = `sample_mobility_bpp_${process.env.MODE}`;
+  process.env.SELLER_APP_URL = `http://localhost:${portNumber}`;
+
+  // console.log(process.env.SELLER_APP_PORT);
+  // console.log(process.env.SELLER_APP_ID);
+  // console.log(process.env.SELLER_APP_URL);
+  // console.log(process.env.MODE);
+  app.post('/subscribe', SubscribeController.subscribe);
+  // SubscribeService.subscribe();
 });
+
+// process.env['SELLER_APP_PORT'] = server.address().port;
+
+// 1. mode=cabs yarn start
+// 2.

@@ -7,7 +7,7 @@ import OrderRepository from '../repo/OrderRepository';
 dotenv.config();
 
 const confirm = async (request) => {
-  request.message.order.fulfillment.tracking = (process.env.MODE === 'ON_DEMAND_CABS');
+  request.message.order.fulfillment.tracking = (process.env.MODE === 'CABS');
   const data = {
     order: {
       ...request.message.order,

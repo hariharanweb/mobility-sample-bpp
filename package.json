@@ -15,7 +15,7 @@
     "test": "vitest --reporter verbose --globals",
     "test:coverage": "vitest run --coverage",
     "train": "cross-env MODE=TRAINS node --experimental-specifier-resolution=node src/app.js",
-    "cabs": "cross-env MODE=ON_DEMAND_CABS node --experimental-specifier-resolution=node src/app.js"
+    "cabs": "cross-env MODE=CABS node --experimental-specifier-resolution=node src/app.js"
   },
   "author": "",
   "license": "ISC",

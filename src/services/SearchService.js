@@ -8,7 +8,7 @@ import Api from '../api/Api';
 dotenv.config();
 
 const readResponse = () => {
-  const mode = process.env.MODE ? process.env.MODE : 'ON_DEMAND_CABS';
+  const mode = process.env.MODE ? process.env.MODE : 'CABS';
   const jsonPath = path.join(process.cwd(), `src/fakeResponses/FakeOnSearchResponse_${mode}.json`);
   const response = fs.readFileSync(jsonPath, 'utf8');
   return JSON.parse(response);

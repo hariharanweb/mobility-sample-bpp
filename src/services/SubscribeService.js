@@ -47,7 +47,7 @@ const subscribe = async () => {
       },
       network_participant: [
         {
-          subscriber_url: '/test1',
+          subscriber_url: process.env.SELLER_APP_URL,
           domain: process.env.NETWORK_PARTICIPANT_DOMAIN,
           type: process.env.NETWORK_PARTICIPANT_TYPE,
           msn: false,
@@ -66,6 +66,7 @@ const subscribe = async () => {
   };
   const url = `${process.env.GATEWAY_URL}/subscribe`;
   const postResponse = await Api.doPost(url, JSON.stringify(response.message));
+  // console.log(JSON.stringify(response.message));
   const body = await postResponse.text();
   logger.debug(`Response ${body}`);
 };

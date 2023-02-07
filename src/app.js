@@ -38,7 +38,8 @@ app.get('/tracking', (req, res) => {
 app.get('/', (req, res) => {
   res.send(`Sample BPP is running ${new Date()}`);
 });
-
+// eslint-disable-next-line no-console
+console.log(process.env.MODE);
 app.post('/search', SearchController.search);
 app.post('/select', SelectController.select);
 app.post('/confirm', ConfirmController.confirm);

@@ -68,7 +68,6 @@ const subscribe = async () => {
   };
   const url = `${process.env.GATEWAY_URL}/subscribe`;
   const postResponse = await Api.doPost(url, JSON.stringify(response.message));
-  // console.log(JSON.stringify(response.message));
   const body = await postResponse.text();
   logger.debug(`Response ${body}`);
 };

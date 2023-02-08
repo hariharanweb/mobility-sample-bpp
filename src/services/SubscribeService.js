@@ -9,7 +9,7 @@ dotenv.config();
 
 const subscribe = async () => {
   const logger = LoggingService.getLogger('SubscribeService');
-   console.log('in subscribe');
+  console.log('in subscribe');
   console.log(process.env.SELLER_APP_PORT);
   console.log(process.env.SELLER_APP_ID);
   console.log(process.env.SELLER_APP_URL);

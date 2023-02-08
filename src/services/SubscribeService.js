@@ -59,7 +59,7 @@ const subscribe = async () => {
         },
       ],
       timestamp: moment().format(),
-      request_id: uuid(),
+      request_id: process.env.REQUEST_ID,
     },
   };
   const response = {

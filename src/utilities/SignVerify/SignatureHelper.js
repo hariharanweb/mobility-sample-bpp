@@ -19,6 +19,16 @@ const concatinateSignature = (created, expires, digestBase64) => `(created): ${c
 (expires): ${expires}
 digest: BLAKE-512=${digestBase64}`;
 
+const createSignedData = (data, privateKey) => {
+  const signedMessage = sodium.crypto_sign_detached(
+    data,
+    sodium.from_base64(privateKey, sodium.base64_variants.ORIGINAL),
+  );
+  const signedMessageBase64 = sodium.to_base64(signedMessage, sodium.base64_variants.ORIGINAL);
+  logger.debug(`Signed Message: ${signedMessageBase64}`);
+  return signedMessageBase64;
+};
+
 const createSignature = async (body, createdAndExpiresValue, privateKey) => {
   await sodium.ready;
   const digest = sodium.crypto_generichash(64, sodium.from_string(body));
@@ -30,14 +40,16 @@ const createSignature = async (body, createdAndExpiresValue, privateKey) => {
   );
   logger.debug(`Digest Base 64: ${digestBase64}`);
   logger.debug(`Signing String : ${signingString}`);
+  return createSignedData(signingString, privateKey);
+};
 
-  const signedMessage = sodium.crypto_sign_detached(
-    signingString,
-    sodium.from_base64(privateKey, sodium.base64_variants.ORIGINAL),
+const verify = (msg, publicKey, signature) => {
+  const verification = sodium.crypto_sign_verify_detached(
+    sodium.from_base64(signature, sodium.base64_variants.ORIGINAL),
+    msg,
+    sodium.from_base64(publicKey, sodium.base64_variants.ORIGINAL),
   );
-  const signedMessageBase64 = sodium.to_base64(signedMessage, sodium.base64_variants.ORIGINAL);
-  logger.debug(`Signed Message: ${signedMessageBase64}`);
-  return signedMessageBase64;
+  return verification;
 };
 
 const getSignature = (headers) => {
@@ -84,6 +96,8 @@ const createSigningStringUsingTime = async (body, created, expires) => {
 
 export default {
   createSignature,
+  createSignedData,
+  verify,
   getCreatedAndExpires,
   getSignature,
   getCreated,

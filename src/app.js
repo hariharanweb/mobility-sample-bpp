@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import log4js from 'log4js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { v4 as uuid } from 'uuid';
 import SearchController from './controllers/SearchController';
 import SelectController from './controllers/SelectController';
 import ConfirmController from './controllers/ConfirmController';
@@ -10,8 +11,10 @@ import InitController from './controllers/InitController';
 import StatusController from './controllers/StatusController';
 import TrackController from './controllers/TrackController';
 import SubscribeController from './controllers/SubscribeController';
+import SignatureHelper from './utilities/SignVerify/SignatureHelper';
 
 dotenv.config();
+process.env.REQUEST_ID = uuid();
 
 const app = express();
 const logger = log4js.getLogger();
@@ -47,6 +50,20 @@ app.post('/status', StatusController.status);
 app.post('/track', TrackController.track);
 app.post('/subscribe', SubscribeController.subscribe);
 
-app.listen(port, () => {
+const registerVerificationPage = async (application) => {
+  application.get('/ondc-site-verification.html', async (req, res) => {
+    const signedRequestId = await SignatureHelper.createSignedData(
+      process.env.REQUEST_ID,
+      process.env.PRIVATE_KEY,
+    );
+    res.status(200).render('ondc-site-verification', {
+      SIGNED_UNIQUE_REQ_ID: signedRequestId,
+    });
+  });
+};
+
+app.listen(port, async () => {
   logger.info(`Sample BPP listening on port ${port}`);
+  logger.info(`BPP request_id ${process.env.REQUEST_ID}`);
+  await registerVerificationPage(app);
 });

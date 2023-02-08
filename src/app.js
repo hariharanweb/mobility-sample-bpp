@@ -11,7 +11,7 @@ import InitController from './controllers/InitController';
 import StatusController from './controllers/StatusController';
 import TrackController from './controllers/TrackController';
 import SubscribeController from './controllers/SubscribeController';
-// import SubscribeService from './services/SubscribeService';
+import SubscribeService from './services/SubscribeService';
 
 dotenv.config();
 
@@ -59,14 +59,15 @@ const server = http.createServer(app);
 server.listen(0, () => {
   const portNumber = server.address().port;
   logger.info(`Sample BPP listening on port ${portNumber}`);
+  console.log(process.env.MODE);
   process.env.SELLER_APP_PORT = portNumber;
   process.env.SELLER_APP_ID = `sample_mobility_bpp_${process.env.MODE}`;
   process.env.SELLER_APP_URL = `http://localhost:${portNumber}`;
 
-  // console.log(process.env.SELLER_APP_PORT);
-  // console.log(process.env.SELLER_APP_ID);
-  // console.log(process.env.SELLER_APP_URL);
-  // console.log(process.env.MODE);
-  app.post('/subscribe', SubscribeController.subscribe);
-  // SubscribeService.subscribe();
+  console.log(process.env.SELLER_APP_PORT);
+  console.log(process.env.SELLER_APP_ID);
+  console.log(process.env.SELLER_APP_URL);
+  console.log(process.env.MODE);
+  // app.post('/subscribe', SubscribeController.subscribe);
+  SubscribeService.subscribe();
 });

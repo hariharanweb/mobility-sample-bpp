@@ -9,6 +9,11 @@ dotenv.config();
 
 const subscribe = async () => {
   const logger = LoggingService.getLogger('SubscribeService');
+   console.log('in subscribe');
+  console.log(process.env.SELLER_APP_PORT);
+  console.log(process.env.SELLER_APP_ID);
+  console.log(process.env.SELLER_APP_URL);
+  console.log(process.env.MODE);
   const data = {
     context: {
       operation: {
@@ -35,7 +40,7 @@ const subscribe = async () => {
         email_id: process.env.EMAIL_ID,
         mobile_no: process.env.MOBILE_NO,
         country: process.env.COUNTRY,
-        subscriber_id: process.env.SUBSCRIBER_ID,
+        subscriber_id: process.env.SELLER_APP_ID,
         unique_key_id: uuid(),
         callback_url: '/test',
         key_pair: {

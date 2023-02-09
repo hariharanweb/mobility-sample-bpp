@@ -8,7 +8,7 @@ const init = async (req, res) => {
   const logger = log4js.getLogger('InitController');
   logger.debug(`Init called with ${JSON.stringify(req.body)}`);
   const publicKey = await LookUpService.getPublicKeyWithSubscriberId(req.body.context.bap_id);
-  authVerifier.authorize(req, publicKey).then(() => {
+  await authVerifier.authorize(req, publicKey).then(() => {
     logger.debug('Request Authorized Successfully.');
     InitService.init(req.body);
     GenericResponse.sendAcknowledgement(res);

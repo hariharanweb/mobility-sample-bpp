@@ -10,7 +10,7 @@ const search = async (req, res) => {
   const BecknGateway = 'BG';
 
   const publicKey = await LookUpService.getPublicKey(BecknGateway);
-  authVerifier.authorize(req, publicKey).then(() => {
+  await authVerifier.authorize(req, publicKey).then(() => {
     logger.debug('Request Authorized Successfully.');
     SearchService.search(req.body);
     GenericResponse.sendAcknowledgement(res);

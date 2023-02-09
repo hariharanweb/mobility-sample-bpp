@@ -14,6 +14,13 @@ const getContextWithContext = (context) => ({
   timestamp: moment().format(),
 });
 
+const getSubscriberContext = () => ({
+  operation: {
+    ops_no: 1,
+  },
+});
+
 export default {
   getContextWithContext,
+  getSubscriberContext,
 };

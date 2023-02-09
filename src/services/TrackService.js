@@ -8,7 +8,7 @@ dotenv.config();
 const track = async (request) => {
   const data = {
     tracking: {
-      url: 'http://localhost:3010/tracking',
+      url: `${process.env.SELLER_APP_URL}/tracking`,
       status: 'active',
     },
   };

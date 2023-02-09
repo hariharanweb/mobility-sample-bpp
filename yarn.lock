@@ -2271,6 +2271,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+random-number-in-range@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/random-number-in-range/-/random-number-in-range-1.0.2.tgz#f38363080ff883104b757f27ae7936de28bbfe8e"
+  integrity sha512-WJj/CGc+WeVFxPjQ1I2e4Jd5gd2oSZpNhSQRm/3WP3ZmA9ft+h5mnxwdzrZe/W9SulA/5805mqKi59C6XA0j1A==
+
 randomatic@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.1.1.tgz#b776efc59375984e36c537b2f51a1f0aff0da1ed"

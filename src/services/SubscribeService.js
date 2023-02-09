@@ -9,8 +9,6 @@ dotenv.config();
 
 const subscribe = async () => {
   const logger = LoggingService.getLogger('SubscribeService');
-  logger.debug(process.env.SELLER_APP_URL);
-  logger.debug(process.env.MODE);
   const data = {
     context: {
       operation: {

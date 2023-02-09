@@ -4,6 +4,7 @@ import path from 'path';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';
+import LookUpService from './LookUpService';
 
 dotenv.config();
 
@@ -17,9 +18,12 @@ const readResponse = () => {
 const search = async (request) => {
   const logger = LoggingService.getLogger('SearchService');
   const gatewayUrl = process.env.GATEWAY_URL;
+  const providerId = await LookUpService.getProviderId('BPP', process.env.SELLER_APP_ID);
+  logger.debug(`\n The provider id is ${JSON.stringify(providerId)}`);
   const fakeOnSearchResponsebody = readResponse();
   fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].start = request.message.intent.fulfillment.start;
   fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].end = request.message.intent.fulfillment.end;
+  fakeOnSearchResponsebody.catalog['bpp/providers'][0].id = providerId;
   const response = {
     context: ContextBuilder.getContextWithContext(request.context),
     message: fakeOnSearchResponsebody,

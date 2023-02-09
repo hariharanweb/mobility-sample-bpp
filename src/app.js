@@ -13,7 +13,6 @@ import StatusController from './controllers/StatusController';
 import TrackController from './controllers/TrackController';
 import SubscribeController from './controllers/SubscribeController';
 import SubscribeService from './services/SubscribeService';
-import SignatureHelper from './utilities/SignVerify/SignatureHelper';
 
 dotenv.config();
 process.env.REQUEST_ID = uuid();
@@ -50,19 +49,6 @@ app.post('/init', InitController.init);
 app.post('/status', StatusController.status);
 app.post('/track', TrackController.track);
 app.post('/subscribe', SubscribeController.subscribe);
-
-const registerVerificationPage = async (application) => {
-  application.get('/ondc-site-verification.html', async (req, res) => {
-    const signedRequestId = await SignatureHelper.createSignedData(
-      process.env.REQUEST_ID,
-      process.env.PRIVATE_KEY,
-    );
-    res.status(200).render('ondc-site-verification', {
-      SIGNED_UNIQUE_REQ_ID: signedRequestId,
-    });
-  });
-};
-
 
 const server = http.createServer(app);
 server.listen(0, () => {

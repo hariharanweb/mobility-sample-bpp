@@ -4,16 +4,23 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "cross-env": "src/bin/cross-env.js",
+    "cross-env-shell": "src/bin/cross-env-shell.js"
+  },
   "scripts": {
     "start": "node --experimental-specifier-resolution=node src/app.js",
     "lint": "eslint src --fix",
     "watch": "nodemon --experimental-specifier-resolution=node src/app.js",
     "test": "vitest --reporter verbose --globals",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "trains": "MODE=trains node --experimental-specifier-resolution=node src/app.js",
+    "cabs": "MODE=cabs node --experimental-specifier-resolution=node src/app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "libsodium-wrappers": "^0.7.10",
@@ -22,7 +29,9 @@
     "moment": "^2.29.4",
     "node-cache": "^5.1.2",
     "node-fetch": "^3.3.0",
+    "os": "^0.1.2",
     "pug": "^3.0.2",
+    "random-number-in-range": "^1.0.2",
     "randomatic": "^3.1.1",
     "uuid": "^9.0.0",
     "vitest": "^0.28.3"

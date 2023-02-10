@@ -4,6 +4,8 @@ import log4js from 'log4js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { v4 as uuid } from 'uuid';
+import rando from 'random-number-in-range';
+import os from 'os';
 import SearchController from './controllers/SearchController';
 import SelectController from './controllers/SelectController';
 import ConfirmController from './controllers/ConfirmController';
@@ -11,6 +13,7 @@ import InitController from './controllers/InitController';
 import StatusController from './controllers/StatusController';
 import TrackController from './controllers/TrackController';
 import SubscribeController from './controllers/SubscribeController';
+import SubscribeService from './services/SubscribeService';
 import SignatureHelper from './utilities/SignVerify/SignatureHelper';
 
 dotenv.config();
@@ -19,7 +22,6 @@ process.env.REQUEST_ID = uuid();
 const app = express();
 const logger = log4js.getLogger();
 logger.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'debug';
-const port = process.env.SELLER_APP_PORT ? process.env.SELLER_APP_PORT : 3010;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -62,8 +64,15 @@ const registerVerificationPage = async (application) => {
   });
 };
 
-app.listen(port, async () => {
-  logger.info(`Sample BPP listening on port ${port}`);
+const portNumber = rando(32000, 65536);
+const hostName = os.hostname();
+
+app.listen(portNumber, async () => {
+  logger.info(`Sample BPP listening on port ${portNumber} and on host ${hostName}`);
+  process.env.SELLER_APP_PORT = portNumber;
+  process.env.SELLER_APP_ID = `sample_mobility_bpp_${process.env.MODE}`;
+  process.env.SELLER_APP_URL = `http://${hostName}:${portNumber}`;
+  SubscribeService.subscribe();
   logger.info(`BPP request_id ${process.env.REQUEST_ID}`);
   await registerVerificationPage(app);
 });

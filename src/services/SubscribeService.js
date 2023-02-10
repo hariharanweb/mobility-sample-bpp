@@ -35,7 +35,7 @@ const subscribe = async () => {
         email_id: process.env.EMAIL_ID,
         mobile_no: process.env.MOBILE_NO,
         country: process.env.COUNTRY,
-        subscriber_id: process.env.SUBSCRIBER_ID,
+        subscriber_id: process.env.SELLER_APP_ID,
         unique_key_id: uuid(),
         callback_url: '/test',
         key_pair: {
@@ -47,7 +47,7 @@ const subscribe = async () => {
       },
       network_participant: [
         {
-          subscriber_url: '/test1',
+          subscriber_url: process.env.SELLER_APP_URL,
           domain: process.env.NETWORK_PARTICIPANT_DOMAIN,
           type: process.env.NETWORK_PARTICIPANT_TYPE,
           msn: false,

@@ -43,7 +43,19 @@ const getPublicKey = async (type) => {
   return publicKeyFromLookUp;
 };
 
+const getProviderId = async (type, subscriber_id) => {
+  const request = JSON.stringify({
+    type,
+    subscriber_id,
+  });
+  const response = await Api.doPost(REGISTRY_URL, request);
+  const responseJson = await response.json();
+  logger.debug(`the looked up Provide id is: ${responseJson[0].ukId}`);
+  return responseJson[0].ukId;
+};
+
 export default {
   getPublicKey,
   getPublicKeyWithSubscriberId,
+  getProviderId,
 };

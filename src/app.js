@@ -13,6 +13,7 @@ import StatusController from './controllers/StatusController';
 import TrackController from './controllers/TrackController';
 import SubscribeController from './controllers/SubscribeController';
 import SubscribeService from './services/SubscribeService';
+import SignatureHelper from './utilities/SignVerify/SignatureHelper';
 
 dotenv.config();
 process.env.REQUEST_ID = uuid();
@@ -50,12 +51,26 @@ app.post('/status', StatusController.status);
 app.post('/track', TrackController.track);
 app.post('/subscribe', SubscribeController.subscribe);
 
+const registerVerificationPage = async (application) => {
+  application.get('/ondc-site-verification.html', async (req, res) => {
+    const signedRequestId = await SignatureHelper.createSignedData(
+      process.env.REQUEST_ID,
+      process.env.PRIVATE_KEY,
+    );
+    res.status(200).render('ondc-site-verification', {
+      SIGNED_UNIQUE_REQ_ID: signedRequestId,
+    });
+  });
+};
+
 const portNumber = rando(32000, 65536);
 
-app.listen(portNumber);
-
-logger.info(`Sample BPP listening on port ${portNumber}`);
-process.env.SELLER_APP_PORT = portNumber;
-process.env.SELLER_APP_ID = `sample_mobility_bpp_${process.env.MODE}`;
-process.env.SELLER_APP_URL = `http://localhost:${portNumber}`;
-SubscribeService.subscribe();
+app.listen(portNumber, async () => {
+  logger.info(`Sample BPP listening on port ${portNumber}`);
+  process.env.SELLER_APP_PORT = portNumber;
+  process.env.SELLER_APP_ID = `sample_mobility_bpp_${process.env.MODE}`;
+  process.env.SELLER_APP_URL = `http://localhost:${portNumber}`;
+  SubscribeService.subscribe();
+  logger.info(`BPP request_id ${process.env.REQUEST_ID}`);
+  await registerVerificationPage(app);
+});

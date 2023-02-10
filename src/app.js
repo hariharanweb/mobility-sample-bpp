@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { v4 as uuid } from 'uuid';
 import rando from 'random-number-in-range';
+import os from 'os';
 import SearchController from './controllers/SearchController';
 import SelectController from './controllers/SelectController';
 import ConfirmController from './controllers/ConfirmController';
@@ -64,12 +65,13 @@ const registerVerificationPage = async (application) => {
 };
 
 const portNumber = rando(32000, 65536);
+const hostName = os.hostname();
 
 app.listen(portNumber, async () => {
-  logger.info(`Sample BPP listening on port ${portNumber}`);
+  logger.info(`Sample BPP listening on port ${portNumber} and on host ${hostName}`);
   process.env.SELLER_APP_PORT = portNumber;
   process.env.SELLER_APP_ID = `sample_mobility_bpp_${process.env.MODE}`;
-  process.env.SELLER_APP_URL = `http://localhost:${portNumber}`;
+  process.env.SELLER_APP_URL = `http://${hostName}:${portNumber}`;
   SubscribeService.subscribe();
   logger.info(`BPP request_id ${process.env.REQUEST_ID}`);
   await registerVerificationPage(app);

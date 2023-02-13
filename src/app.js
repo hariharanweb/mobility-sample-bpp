@@ -3,8 +3,9 @@ import * as dotenv from 'dotenv';
 import log4js from 'log4js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import http from 'http';
 import { v4 as uuid } from 'uuid';
+import rando from 'random-number-in-range';
+import os from 'os';
 import SearchController from './controllers/SearchController';
 import SelectController from './controllers/SelectController';
 import ConfirmController from './controllers/ConfirmController';
@@ -13,6 +14,7 @@ import StatusController from './controllers/StatusController';
 import TrackController from './controllers/TrackController';
 import SubscribeController from './controllers/SubscribeController';
 import SubscribeService from './services/SubscribeService';
+import SignatureHelper from './utilities/SignVerify/SignatureHelper';
 
 dotenv.config();
 process.env.REQUEST_ID = uuid();
@@ -51,14 +53,29 @@ app.post('/status', StatusController.status);
 app.post('/track', TrackController.track);
 app.post('/subscribe', SubscribeController.subscribe);
 
-const server = http.createServer(app);
-server.listen(0, () => {
-  const portNumber = server.address().port;
-  logger.info(`Sample BPP listening on port ${portNumber}`);
+const registerVerificationPage = async (application) => {
+  application.get('/ondc-site-verification.html', async (req, res) => {
+    const signedRequestId = await SignatureHelper.createSignedData(
+      process.env.REQUEST_ID,
+      process.env.PRIVATE_KEY,
+    );
+    res.status(200).render('ondc-site-verification', {
+      SIGNED_UNIQUE_REQ_ID: signedRequestId,
+    });
+  });
+};
+
+const portNumber = rando(32000, 65536);
+const hostName = os.hostname();
+
+app.listen(portNumber, async () => {
+  logger.info(`Sample BPP listening on port ${portNumber} and on host ${hostName}`);
   process.env.SELLER_APP_PORT = portNumber;
   process.env.SELLER_APP_ID = `sample_mobility_bpp_${process.env.MODE}`;
-  process.env.SELLER_APP_URL = `http://localhost:${portNumber}`;
+  process.env.SELLER_APP_URL = `http://${hostName}:${portNumber}`;
   SubscribeService.subscribe();
+  logger.info(`BPP request_id ${process.env.REQUEST_ID}`);
+  await registerVerificationPage(app);
 });
 
 // process.env['SELLER_APP_PORT'] = server.address().port;

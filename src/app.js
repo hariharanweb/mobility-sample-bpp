@@ -14,6 +14,7 @@ import TrackController from './controllers/TrackController';
 import SubscribeController from './controllers/SubscribeController';
 import SubscribeService from './services/SubscribeService';
 import SignatureHelper from './utilities/SignVerify/SignatureHelper';
+import OnSubscribeController from './controllers/OnSubscribeController';
 
 dotenv.config();
 process.env.REQUEST_ID = uuid();
@@ -50,6 +51,7 @@ app.post('/init', InitController.init);
 app.post('/status', StatusController.status);
 app.post('/track', TrackController.track);
 app.post('/subscribe', SubscribeController.subscribe);
+app.post('/on_subscribe', OnSubscribeController.onSubscribe);
 
 const registerVerificationPage = async (application) => {
   application.get('/ondc-site-verification.html', async (req, res) => {

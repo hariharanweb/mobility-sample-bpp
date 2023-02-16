@@ -4,12 +4,11 @@
 }
 
 #map {
-  height: 90%;
+  height: 100%;
 }
 
 html,
 body {
   height: 100%;
   margin: 0;
-  padding: 0px 20px;
 }

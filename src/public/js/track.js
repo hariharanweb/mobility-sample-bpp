@@ -17,7 +17,7 @@ function displayRoute(origin, destination, service, display) {
 }
 
 function initMap() {
-  const myLatLng = { lat: 28.58075095435382, lng: 77.27438995055431 };
+  const myLatLng = { lat: 28.553696510813637, lng: 77.21231247943025 };
   const startPoint = '28.572886028444636, 77.32493318610665';
   const endPoint = '28.553696510813637, 77.21231247943025';
   const map = new google.maps.Map(document.getElementById('map'), {
@@ -30,7 +30,7 @@ function initMap() {
     map,
     panel: document.getElementById('panel'),
   });
-  const image = 'https://img.icons8.com/emoji/30/automobile.png';
+  const image = 'https://img.icons8.com/bubbles/132/user.png';
   /* eslint-disable no-new */
   new google.maps.Marker({
     position: myLatLng,

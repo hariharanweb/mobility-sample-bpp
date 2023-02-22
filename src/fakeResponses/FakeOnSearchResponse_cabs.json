@@ -49,7 +49,13 @@
               "currency": "INR",
               "value": "1111"
             },
-            "category_id": "Bake_TAXI_SEDAN"
+            "category_id": "Bake_TAXI_SEDAN",
+            "time": {
+              "range": {
+                "start": "2023-01-09T16:55:00+00:00",
+                "end": "2023-01-09T18:45:00+00:00"
+              }
+            }
           },
           {
             "id": "Bake_SUV_ID",
@@ -65,7 +71,13 @@
               "currency": "INR",
               "value": "1411"
             },
-            "category_id": "Bake_TAXI_SUV"
+            "category_id": "Bake_TAXI_SUV",
+            "time": {
+              "range": {
+                "start": "2023-01-09T16:55:00+00:00",
+                "end": "2023-01-09T18:45:00+00:00"
+              }
+            }
           }
         ]
       }

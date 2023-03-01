@@ -16,9 +16,13 @@ import SubscribeService from './services/SubscribeService';
 import SignatureHelper from './utilities/SignVerify/SignatureHelper';
 import OnSubscribeController from './controllers/OnSubscribeController';
 
-dotenv.config();
-process.env.REQUEST_ID = uuid();
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
+dotenv.config({ override: true });
+dotenv.config({ path: path.resolve(process.cwd(), `local.env.${process.env.MODE}`) });
+
+process.env.REQUEST_ID = uuid();
 const app = express();
 const logger = log4js.getLogger();
 logger.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'debug';
@@ -26,9 +30,7 @@ logger.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'debug';
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const filename = fileURLToPath(import.meta.url);
 
-const dirname = path.dirname(filename);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(dirname, 'views'));

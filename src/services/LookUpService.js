@@ -3,10 +3,10 @@ import Api from '../api/Api';
 import Cache from '../utilities/Cache';
 import LoggingService from './LoggingService';
 
-const REGISTRY_URL = `${process.env.REGISTRY_URL}/lookup`;
 const logger = LoggingService.getLogger('LookUpService');
 
 const lookUpPublicKey = async (request) => {
+  const REGISTRY_URL = `${process.env.REGISTRY_URL}/lookup`;
   const response = await Api.doPost(REGISTRY_URL, request);
   const responseJson = await response.json();
   logger.debug(`the looked up publickey is: ${responseJson[0].signing_public_key}`);
@@ -48,6 +48,7 @@ const getProviderId = async (type, subscriber_id) => {
     type,
     subscriber_id,
   });
+  const REGISTRY_URL = `${process.env.REGISTRY_URL}/lookup`;
   const response = await Api.doPost(REGISTRY_URL, request);
   const responseJson = await response.json();
   logger.debug(`the looked up Provide id is: ${responseJson[0].ukId}`);

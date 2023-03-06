@@ -8,7 +8,18 @@ import LookUpService from './LookUpService';
 
 dotenv.config();
 
-const readResponse = () => {
+const readCategorizeResponse = (filterCategory) => {
+  const mode = process.env.MODE ? process.env.MODE : 'CABS';
+  const category = process.env.CATEGORY_KEY;
+  if (category === filterCategory) {
+    const jsonPath = path.join(process.cwd(), `src/fakeResponses/FakeOnSearchResponse_${mode}.json`);
+    const response = fs.readFileSync(jsonPath, 'utf8');
+    return JSON.parse(response);
+  }
+  return {};
+};
+
+const readAllResponse = () => {
   const mode = process.env.MODE ? process.env.MODE : 'CABS';
   const jsonPath = path.join(process.cwd(), `src/fakeResponses/FakeOnSearchResponse_${mode}.json`);
   const response = fs.readFileSync(jsonPath, 'utf8');
@@ -17,10 +28,13 @@ const readResponse = () => {
 
 const search = async (request) => {
   const logger = LoggingService.getLogger('SearchService');
+  // process.env.CATEGORY = cabs
+  const filterCategory = request.message.intent.category.id;
   const gatewayUrl = process.env.GATEWAY_URL;
   const providerId = await LookUpService.getProviderId('BPP', process.env.SELLER_APP_ID);
   logger.debug(`\n The provider id is ${JSON.stringify(providerId)}`);
-  const fakeOnSearchResponsebody = readResponse();
+  const fakeOnSearchResponsebody = filterCategory
+    ? readCategorizeResponse(filterCategory) : readAllResponse();
   fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].start = request.message.intent.fulfillment.start;
   fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].end = request.message.intent.fulfillment.end;
   fakeOnSearchResponsebody.catalog['bpp/providers'][0].id = providerId;

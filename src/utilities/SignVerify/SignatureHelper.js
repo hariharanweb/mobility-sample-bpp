@@ -1,8 +1,5 @@
 import sodium from 'libsodium-wrappers';
-import LoggingService from '../../services/LoggingService';
 import AuthHeaderSplitter from './AuthHeaderSplitter';
-
-const logger = LoggingService.getLogger('SignatureHelper');
 
 const getCreatedAndExpires = () => {
   const created = Math.floor(

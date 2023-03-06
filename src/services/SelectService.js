@@ -1,9 +1,6 @@
-import * as dotenv from 'dotenv';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';
-
-dotenv.config();
 
 const select = async (request) => {
   const logger = LoggingService.getLogger('SelectService');

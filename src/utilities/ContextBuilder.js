@@ -1,7 +1,4 @@
-import * as dotenv from 'dotenv';
 import moment from 'moment';
-
-dotenv.config();
 
 const getContextWithContext = (context) => ({
   ...context,

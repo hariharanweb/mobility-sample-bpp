@@ -1,12 +1,9 @@
-import * as dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';
 import LookUpService from './LookUpService';
-
-dotenv.config();
 
 const readCategorizeResponse = (filterCategory) => {
   const mode = process.env.MODE ? process.env.MODE : 'CABS';

@@ -45,7 +45,8 @@ app.get('/tracking', (req, res) => {
 app.get('/', (req, res) => {
   res.send(`Sample BPP is running ${new Date()}`);
 });
-
+// eslint-disable-next-line no-console
+console.log(process.env.MODE);
 app.post('/search', SearchController.search);
 app.post('/select', SelectController.select);
 app.post('/confirm', ConfirmController.confirm);
@@ -78,3 +79,8 @@ app.listen(portNumber, async () => {
   logger.info(`BPP request_id ${process.env.REQUEST_ID}`);
   await registerVerificationPage(app);
 });
+
+// process.env['SELLER_APP_PORT'] = server.address().port;
+
+// 1. mode=cabs yarn start
+// 2.

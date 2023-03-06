@@ -45,6 +45,7 @@ const search = async (request) => {
   // eslint-disable-next-line no-promise-executor-return
   await new Promise((resolve) => setTimeout(resolve, 1000)); // delayed result
   const postReponse = await Api.doPost(`${gatewayUrl}/on_search`, JSON.stringify(response));
+  logger.debug(postReponse);
   const body = await postReponse.text();
   logger.debug(`Response ${body}`);
 };

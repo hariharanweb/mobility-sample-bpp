@@ -1,11 +1,8 @@
-import * as dotenv from 'dotenv';
 import { v4 as uuid } from 'uuid';
 import moment from 'moment';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';
-
-dotenv.config();
 
 const subscribe = async () => {
   const logger = LoggingService.getLogger('SubscribeService');

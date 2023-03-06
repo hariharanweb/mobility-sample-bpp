@@ -1,11 +1,8 @@
-import * as dotenv from 'dotenv';
 import randomize from 'randomatic';
 import ContextBuilder from '../utilities/ContextBuilder';
 import LoggingService from './LoggingService';
 import Api from '../api/Api';
 import OrderRepository from '../repo/OrderRepository';
-
-dotenv.config();
 
 const status = async (request) => {
   const orderFromCache = OrderRepository.getResult(request.message.order.id);

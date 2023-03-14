@@ -150,7 +150,7 @@
             "travelClass": [
               {
                 "travel_class_id": "EC",
-                "travel_class_name": "Executive Chair Car",
+                "travel_class_name": "EC",
                 "fare_type": "Quantity",
                 "availability": "50",
                 "fare_categories": [

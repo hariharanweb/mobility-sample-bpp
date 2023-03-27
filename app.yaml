@@ -1,0 +1,8 @@
+runtime: nodejs14
+env: standard
+instance_class: F1
+service: sellerappcabs
+env_variables:
+  GATEWAY_URL: "https://registry-dot-test-sample-381704.el.r.appspot.com"
+  REGISTRY_URL: "https://registry-dot-test-sample-381704.el.r.appspot.com"
+  SELLER_APP_URL: "https://sellerappcabs-dot-test-sample-381704.el.r.appspot.com"

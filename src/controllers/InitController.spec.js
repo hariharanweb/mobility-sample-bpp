@@ -20,7 +20,7 @@ beforeEach(() => {
   InitService.init = vi.fn();
 });
 
-const request = {
+const req = {
   body: {
     context: {
       action: 'init', transaction_id: 'f34bafcd-2644-4c47-b6bc-e248a0fbd83b', bpp_uri: 'http://localhost:4010', domain: 'nic2004:60221', country: 'IND', city: 'std:080', core_version: '1.0.0', bap_id: 'sample_mobility_bap', bap_uri: 'http://localhost:2010', message_id: '5d850532-ce26-4ac7-9e14-501dc29d8815', timestamp: '2023-02-06T11:23:50+05:30',
@@ -42,25 +42,31 @@ const request = {
 
 describe('Init Controller', () => {
   it('should check whether public key is obtained', async () => {
-    await InitController.init(request);
-    expect(LookUpService.getPublicKeyWithSubscriberId).toBeCalled();
+    await InitController.init(req);
+    expect(LookUpService.getPublicKeyWithSubscriberId).
+    toBeCalledWith(req.body.context.bap_id);
   });
 
   it('should test with request is authorised', async () => {
-    await InitController.init(request);
+    await InitController.init(req);
     expect(AuthHeaderVerifier.authorize).toBeCalled();
+  });
+
+  it('should test for init service is called', async () => {
+    await InitController.init(req);
+    expect(InitService.init).toBeCalledWith(req.body);
   });
 
   it('should test for authorization failure', async () => {
     AuthHeaderVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
     const res = {};
-    await InitController.init(request, res);
-    expect(GenericResponse.sendErrorWithAuthorization).toBeCalled();
+    await InitController.init(req, res);
+    expect(GenericResponse.sendErrorWithAuthorization).toBeCalledWith(res);
   });
 
   it('should test for generic response is called', async () => {
     const res = {};
-    await InitController.init(request, res);
-    expect(GenericResponse.sendAcknowledgement).toBeCalled();
+    await InitController.init(req, res);
+    expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
   });
 });

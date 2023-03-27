@@ -20,7 +20,7 @@ beforeEach(() => {
   ConfirmService.confirm = vi.fn();
 });
 
-const request = {
+const req = {
   body: {
     context: {
       action: 'confirm',
@@ -50,26 +50,31 @@ const request = {
 
 describe('Confirm Controller', () => {
   it('should check whether public key is obtained', async () => {
-    await ConfirmController.confirm(request);
-    expect(LookUpService.getPublicKeyWithSubscriberId).toBeCalled();
+    await ConfirmController.confirm(req);
+    expect(LookUpService.getPublicKeyWithSubscriberId)
+      .toBeCalledWith(req.body.context.bap_id);
   });
 
   it('should test with request is authorised', async () => {
-    await ConfirmController.confirm(request);
+    await ConfirmController.confirm(req);
     expect(AuthHeaderVerifier.authorize).toBeCalled();
+  });
+
+  it('should test for confirm service is called', async () => {
+    await ConfirmController.confirm(req);
+    expect(ConfirmService.confirm).toBeCalledWith(req.body);
   });
 
   it('should test for authorization failure', async () => {
     AuthHeaderVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
     const res = {};
-    await ConfirmController.confirm(request, res);
-    expect(GenericResponse.sendErrorWithAuthorization).toBeCalled();
+    await ConfirmController.confirm(req, res);
     expect(GenericResponse.sendErrorWithAuthorization).toBeCalledWith(res);
   });
 
   it('should test for generic response is called', async () => {
     const res = {};
-    await ConfirmController.confirm(request, res);
-    expect(GenericResponse.sendAcknowledgement).toBeCalled();
+    await ConfirmController.confirm(req, res);
+    expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
   });
 });

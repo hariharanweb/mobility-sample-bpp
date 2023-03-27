@@ -2,22 +2,22 @@ import {
   expect, it, vi, beforeEach, describe,
 } from 'vitest';
 import LookUpService from '../services/LookUpService';
-import SelectController from './SelectController';
+import TrackController from './TrackController';
+import TrackService from '../services/TrackService';
 import AuthVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
 import GenericResponse from '../utilities/GenericResponse';
-import SelectService from '../services/SelectService';
 
 vi.mock('../services/LookUpService');
 vi.mock('../utilities/SignVerify/AuthHeaderVerifier');
 vi.mock('../utilities/GenericResponse');
-vi.mock('../services/SelectService');
+vi.mock('../services/TrackService');
 
 beforeEach(() => {
   AuthVerifier.authorize = vi.fn(() => Promise.resolve(true));
   LookUpService.getPublicKeyWithSubscriberId = vi.fn(() => Promise.resolve('1111'));
   GenericResponse.sendAcknowledgement = vi.fn();
   GenericResponse.sendErrorWithAuthorization = vi.fn();
-  SelectService.select = vi.fn();
+  TrackService.track = vi.fn();
 });
 
 const req = {
@@ -58,34 +58,34 @@ const req = {
   },
 };
 
-describe('Select Controller', () => {
+describe('Track Controller', () => {
   it('should test whether public key is attained', async () => {
-    await SelectController.select(req);
+    await TrackController.track(req);
     expect(
       LookUpService.getPublicKeyWithSubscriberId,
     ).toBeCalledWith(req.body.context.bap_id);
   });
 
   it('should test with request is authorised', async () => {
-    await SelectController.select(req);
+    await TrackController.track(req);
     expect(AuthVerifier.authorize).toBeCalled();
   });
 
-  it('should test for select service is called', async () => {
-    await SelectController.select(req);
-    expect(SelectService.select).toBeCalledWith(req.body);
+  it('should test for track service is called', async () => {
+    await TrackController.track(req);
+    expect(TrackService.track).toBeCalledWith(req.body);
   });
 
   it('should test for authorization failure', async () => {
     AuthVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
     const res = {};
-    await SelectController.select(req, res);
+    await TrackController.track(req, res);
     expect(GenericResponse.sendErrorWithAuthorization).toBeCalledWith(res);
   });
 
   it('should test for generic response is called', async () => {
     const res = {};
-    await SelectController.select(req, res);
+    await TrackController.track(req, res);
     expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
   });
 });

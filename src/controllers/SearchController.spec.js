@@ -1,9 +1,9 @@
 import {
   expect, it, vi, beforeEach, describe,
 } from 'vitest';
-import searchController from './SearchController';
+import SearchController from './SearchController';
 import LookUpService from '../services/LookUpService';
-import authVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
+import AuthVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
 import GenericResponse from '../utilities/GenericResponse';
 import SearchService from '../services/SearchService';
 
@@ -12,7 +12,7 @@ vi.mock('../services/SearchService');
 vi.mock('../utilities/SignVerify/AuthHeaderVerifier');
 
 beforeEach(() => {
-  authVerifier.authorize = vi.fn(() => Promise.resolve(true));
+  AuthVerifier.authorize = vi.fn(() => Promise.resolve(true));
   LookUpService.getPublicKey = vi.fn(() => Promise.resolve());
   GenericResponse.sendAcknowledgement = vi.fn();
   GenericResponse.sendErrorWithAuthorization = vi.fn();
@@ -23,7 +23,8 @@ GenericResponse.sendErrorWithAuthorization = vi.fn((res) => {
   res.status(401).send('Status: NOT');
 });
 
-const request = {
+const req = {
+  body:{
   context: {
     domain: 'nic2004:60221',
     country: 'IND',
@@ -44,33 +45,33 @@ const request = {
       },
     },
   },
-};
+}};
 describe('Seach Controller', () => {
   it('should test for lookupservice is called', async () => {
-    await searchController.search(request);
-    expect(LookUpService.getPublicKey).toBeCalled();
+    await SearchController.search(req);
+    expect(LookUpService.getPublicKey).toBeCalledWith("BG");
   });
 
   it('should test for authorize is called', async () => {
-    await searchController.search(request);
-    expect(authVerifier.authorize).toHaveBeenCalled();
+    await SearchController.search(req);
+    expect(AuthVerifier.authorize).toBeCalled();
   });
 
   it('should test for Search service is called', async () => {
-    await searchController.search(request);
-    expect(SearchService.search).toHaveBeenCalled();
+    await SearchController.search(req);
+    expect(SearchService.search).toBeCalledWith(req.body);
   });
 
   it('should test for authorization failure', async () => {
-    authVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
+    AuthVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
     const res = {};
-    await searchController.search(request, res);
-    expect(GenericResponse.sendErrorWithAuthorization).toBeCalled();
+    await SearchController.search(req, res);
+    expect(GenericResponse.sendErrorWithAuthorization).toBeCalledWith(res);
   });
 
   it('should test for search response', async () => {
     const res = {};
-    await searchController.search(request, res);
+    await SearchController.search(req, res);
     expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
   });
 });

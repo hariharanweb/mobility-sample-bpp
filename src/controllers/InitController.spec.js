@@ -43,8 +43,8 @@ const req = {
 describe('Init Controller', () => {
   it('should check whether public key is obtained', async () => {
     await InitController.init(req);
-    expect(LookUpService.getPublicKeyWithSubscriberId).
-    toBeCalledWith(req.body.context.bap_id);
+    expect(LookUpService.getPublicKeyWithSubscriberId)
+      .toBeCalledWith(req.body.context.bap_id);
   });
 
   it('should test with request is authorised', async () => {

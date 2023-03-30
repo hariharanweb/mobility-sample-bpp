@@ -3,7 +3,7 @@ import {
 } from 'vitest';
 import LookUpService from '../services/LookUpService';
 import StatusController from './StatusController';
-import authVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
+import AuthVerifier from '../utilities/SignVerify/AuthHeaderVerifier';
 import GenericResponse from '../utilities/GenericResponse';
 import StatusService from '../services/StatusService';
 
@@ -13,7 +13,7 @@ vi.mock('../utilities/GenericResponse');
 vi.mock('../services/StatusService');
 
 beforeEach(() => {
-  authVerifier.authorize = vi.fn(() => Promise.resolve(true));
+  AuthVerifier.authorize = vi.fn(() => Promise.resolve(true));
   LookUpService.getPublicKeyWithSubscriberId = vi.fn(() => Promise.resolve('1111'));
   GenericResponse.sendAcknowledgement = vi.fn();
   GenericResponse.sendErrorWithAuthorization = vi.fn();
@@ -41,28 +41,33 @@ const req = {
 };
 
 describe('Status Controller', () => {
-  it('should test whether publick key is attained', async () => {
+  it('should test whether public key is attained', async () => {
     await StatusController.status(req);
     expect(
       LookUpService.getPublicKeyWithSubscriberId,
-    ).toHaveBeenCalledWith(req.body.context.bap_id);
+    ).toBeCalledWith(req.body.context.bap_id);
   });
 
   it('should test with request is authorised', async () => {
     await StatusController.status(req);
-    expect(authVerifier.authorize).toBeCalled();
+    expect(AuthVerifier.authorize).toBeCalled();
+  });
+
+  it('should test for status service is called', async () => {
+    await StatusController.status(req);
+    expect(StatusService.status).toBeCalledWith(req.body);
   });
 
   it('should test for authorization failure', async () => {
-    authVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
+    AuthVerifier.authorize = vi.fn(() => Promise.reject(new Error('fail')));
     const res = {};
     await StatusController.status(req, res);
-    expect(GenericResponse.sendErrorWithAuthorization).toBeCalled();
+    expect(GenericResponse.sendErrorWithAuthorization).toBeCalledWith(res);
   });
 
   it('should test for generic response is called', async () => {
     const res = {};
     await StatusController.status(req, res);
-    expect(GenericResponse.sendAcknowledgement).toBeCalled();
+    expect(GenericResponse.sendAcknowledgement).toBeCalledWith(res);
   });
 });

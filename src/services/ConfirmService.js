@@ -10,6 +10,7 @@ const confirm = async (request) => {
       ...request.message.order,
       fulfillment: {
         ...request.message.order.fulfillment,
+        tracking: true,
         agent: {
           name: 'Nikhil',
           dob: '01/02/1996',

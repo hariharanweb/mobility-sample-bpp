@@ -30,6 +30,18 @@ const confirm = async (request) => {
   };
   const logger = LoggingService.getLogger('ConfirmService');
   logger.debug(JSON.stringify(request));
+  // eslint-disable-next-line no-promise-executor-return
+  await new Promise((resolve) => setTimeout(resolve, 5000)); // delayed result
+  data.order.fulfillment.state = {
+    descriptor: {
+      code: 'RIDE_SELECTED',
+    },
+  };
+  data.order.fulfillment.start.authorization = {
+    type: 'OTP',
+    token: '112233',
+  };
+
   const response = {
     context: ContextBuilder.getContextWithContext(request.context),
     message: data,

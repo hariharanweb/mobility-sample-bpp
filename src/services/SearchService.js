@@ -30,20 +30,24 @@ const search = async (request) => {
   const gatewayUrl = process.env.GATEWAY_URL;
   const providerId = await LookUpService.getProviderId('BPP', process.env.SELLER_APP_ID);
   logger.debug(`\n The provider id is ${JSON.stringify(providerId)}`);
-  const fakeOnSearchResponsebody = filterCategory
-    ? readCategorizeResponse(filterCategory) : readAllResponse();
-  fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].start = request.message.intent.fulfillment.start;
-  fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].end = request.message.intent.fulfillment.end;
-  fakeOnSearchResponsebody.catalog['bpp/providers'][0].id = providerId;
-  const response = {
-    context: ContextBuilder.getContextWithContext(request.context),
-    message: fakeOnSearchResponsebody,
-  };
-  // eslint-disable-next-line no-promise-executor-return
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // delayed result
-  const postReponse = await Api.doPost(`${gatewayUrl}/on_search`, JSON.stringify(response));
-  const body = await postReponse.text();
-  logger.debug(`Response ${body}`);
+  try {
+    const fakeOnSearchResponsebody = filterCategory
+      ? readCategorizeResponse(filterCategory) : readAllResponse();
+    fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].start = request.message.intent.fulfillment.start;
+    fakeOnSearchResponsebody.catalog['bpp/fulfillments'][0].end = request.message.intent.fulfillment.end;
+    fakeOnSearchResponsebody.catalog['bpp/providers'][0].id = providerId;
+    const response = {
+      context: ContextBuilder.getContextWithContext(request.context),
+      message: fakeOnSearchResponsebody,
+    };
+    // eslint-disable-next-line no-promise-executor-return
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // delayed result
+    const postReponse = await Api.doPost(`${gatewayUrl}/on_search`, JSON.stringify(response));
+    const body = await postReponse.text();
+    logger.debug(`Response ${body}`);
+  } catch (err) {
+    logger.debug(`error ${err}`);
+  }
 };
 
 export default {

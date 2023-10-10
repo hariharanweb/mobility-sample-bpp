@@ -1,34 +1,34 @@
 {
   "catalog": {
     "bpp/descriptor": {
-      "name": "Bake Taxi",
-      "code": "Bake_TAXI"
+      "name": "Taxi Co.",
+      "code": "TAXI_Co"
     },
     "bpp/providers": [
       {
         "id": "111-222-300",
         "descriptor": {
-          "name": "Bake Taxi's",
-          "long_desc": "We are Bake",
+          "name": "Taxi Co.",
+          "long_desc": "Welcome aboard Taxi Co, your trusted partner in transportation.",
           "images": [
             "https://s3.amazonaws.com/ionic-marketplace/uber-clone-using-ionic-and-firebase/icon.jpg"
           ]
         },
         "locations": [
           {
-            "id": "Bake_TAXI_LOCATION_ID",
+            "id": "TAXI_Co_LOCATION_ID",
             "gps": "12.973614,77.608548"
           }
         ],
         "categories": [
           {
-            "id": "Bake_TAXI_SEDAN",
+            "id": "TAXI_Co_SEDAN",
             "descriptor": {
               "name": "Sedan Taxi"
             }
           },
           {
-            "id": "Bake_TAXI_SUV",
+            "id": "TAXI_Co_SUV",
             "descriptor": {
               "name": "SUV Taxi"
             }
@@ -36,8 +36,8 @@
         ],
         "items": [
           {
-            "id": "Bake_SEDAN_ID",
-            "fulfillment_id": "Bake_SEDAN_FULFILLMENT_ID",
+            "id": "TAXI_CO_SEDAN_ID",
+            "fulfillment_id": "TAXI_CO_SEDAN_FULFILLMENT_ID",
             "descriptor": {
               "name": "Sedan",
               "code": "SEDAN_TAXI",
@@ -47,16 +47,16 @@
             },
             "price": {
               "currency": "INR",
-              "value": "1111"
+              "value": "1000"
             },
-            "category_id": "Bake_TAXI_SEDAN",
+            "category_id": "TAXI_Co_SEDAN",
             "time": {
               "duration": "00:45"
             }
           },
           {
-            "id": "Bake_SUV_ID",
-            "fulfillment_id": "Bake_SUV_FULFILLMENT_ID",
+            "id": "TAXI_CO_SUV_ID",
+            "fulfillment_id": "TAXI_CO_SUV_FULFILLMENT_ID",
             "descriptor": {
               "name": "SUV",
               "code": "SUV_TAXI",
@@ -66,9 +66,9 @@
             },
             "price": {
               "currency": "INR",
-              "value": "1411"
+              "value": "1400"
             },
-            "category_id": "Bake_TAXI_SUV",
+            "category_id": "TAXI_Co_SUV",
             "time": {
               "duration": "00:45"
             }
